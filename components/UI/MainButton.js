@@ -6,7 +6,7 @@ const MainButton = ({ title, fun, ...props }) => {
   return (
     <button
       type={props.type}
-      className="bg-blue-700 px-6 py-2 rounded-md text-white shadow-md"
+      className="bg-primary-button px-6 py-1 text-sm rounded-md text-white shadow-lg hover:bg-secondary-button hover:shadow-sm"
       onClick={(e) => {
         props.type !== "submit" && fun(e);
       }}

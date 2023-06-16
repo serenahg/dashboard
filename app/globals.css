@@ -2,4 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
+:root {
+  --primary-menu: #144265;
+  --secondary-menu: #27a3f6;
+  --primary-button: #4472c4;
+  --secondary-button: #4f85e1;
+  --primary-table: #b4c6e7;
+  --secondary-table: #d9e1f2;
+  --secondary-font: #8ba0da;
+}

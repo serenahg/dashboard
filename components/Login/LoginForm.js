@@ -10,6 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
+
   const submitting = (event) => {
     console.log(event);
     event.preventDefault();
@@ -18,7 +19,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="md:w-1/4 h-2/3 justify-center items-center flex ">
+    <div className=" h-2/3 justify-start  flex ">
       <form onSubmit={submitting} className=" items-start flex flex-col ">
         <MainInput
           type="text"

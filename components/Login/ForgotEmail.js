@@ -10,7 +10,7 @@ const ForgotEmail = () => {
     console.log("retrievening email if existing: ", forgotEmail);
   };
   return (
-    <div className="md:w-1/4 h-1/3 justify-center items-center flex flex-col ">
+    <div className="h-1/3 justify-start items-center  ">
       <form
         onSubmit={retrievingEmail}
         className=" justify-start items-start flex flex-col"
