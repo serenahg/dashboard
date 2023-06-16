@@ -16,11 +16,55 @@ export const menuItems = [
     title: "Projects",
     url: "/dashboard/projects",
     icon: <TbFileCertificate className="text-white" size={20} />,
+    submenu: [
+      {
+        title: "Project List",
+        url: "/dashboard/projects/project-list",
+      },
+      {
+        title: "Project Exchange Rate",
+        url: "/dashboard/projects/project-exchange-rate",
+      },
+      {
+        title: "Project Authorization",
+        url: "/dashboard/projects/project-authorization",
+      },
+    ],
   },
   {
     title: "Items",
     url: "/dashboard/items",
     icon: <FaListUl className="text-white" size={20} />,
+    submenu: [
+      {
+        title: "Room types",
+        url: "/dashboard/items/room-types",
+      },
+      {
+        title: "Locations",
+        url: "/dashboard/items/locations",
+      },
+      {
+        title: "Batches",
+        url: "/dashboard/items/batches",
+      },
+      {
+        title: "Import",
+        url: "/dashboard/items/import",
+      },
+      {
+        title: "Copy Items",
+        url: "/dashboard/items/copy-items",
+      },
+      {
+        title: "Reports",
+        url: "/dashboard/items/reports",
+      },
+      {
+        title: "Alerts",
+        url: "/dashboard/items/alerts",
+      },
+    ],
   },
   {
     title: "Orders",
@@ -29,19 +73,19 @@ export const menuItems = [
     submenu: [
       {
         title: "Interrogation",
-        url: "/dashboard/interrogation",
+        url: "/dashboard/orders/interrogation",
       },
       {
         title: "Order Processing",
-        url: "/dashboard/processing",
+        url: "/dashboard/orders/processing",
       },
       {
         title: "Labels",
-        url: "/dashboard/labels",
+        url: "/dashboard/orders/labels",
       },
       {
         title: "Payment Request",
-        url: "/dashboard/request",
+        url: "/dashboard/orders/payment-request",
       },
     ],
   },
@@ -51,16 +95,16 @@ export const menuItems = [
     icon: <LuShip className="text-white" size={20} />,
     submenu: [
       {
-        title: "Daeliveries",
-        url: "/deliveries",
+        title: "Deliveries",
+        url: "/dashboard/logistics/deliveries",
       },
       {
         title: "Shipping",
-        url: "shipping",
+        url: "/dashboard/logistics/shipping",
       },
       {
         title: "Invoice/Docs",
-        url: "invoices",
+        url: "/dashboard/logistics/invoices-docs",
       },
     ],
   },

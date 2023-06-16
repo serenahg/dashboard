@@ -5,8 +5,6 @@ import { Inter } from "next/font/google";
 import { useEffect } from "react";
 import Header from "@/components/UI/Header";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata = {
   title: "Hesco Group",
   description: "A giant App",
@@ -25,7 +23,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
+      <body className={` min-h-screen flex flex-col`}>
         <Header />
         {children}
       </body>

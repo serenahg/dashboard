@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        height: "height",
+      },
       colors: {
         "primary-menu": "var(--primary-menu)",
         "secondary-menu": "var(--secondary-menu)",

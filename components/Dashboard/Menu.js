@@ -1,38 +1,74 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { CgProfile } from "react-icons/cg";
-import { IoMdArrowDropleftCircle } from "react-icons/io";
-import { HiOutlineCurrencyEuro } from "react-icons/hi";
-import { FaRegBuilding, FaListUl, FaRegBell } from "react-icons/fa";
-import { TbFileCertificate, TbReportAnalytics } from "react-icons/tb";
-import { LuShip, LuFactory } from "react-icons/lu";
-import { BsGear, BsQuestionCircle } from "react-icons/bs";
+import {
+  IoMdArrowDropleftCircle,
+  IoMdArrowDroprightCircle,
+} from "react-icons/io";
 import { menuItems } from "@/utils/menuItems";
+import MenuDropdown from "../UI/MenuDropdown";
 
 const Menu = () => {
-  const [open, setOpen] = useState();
+  const [open, setOpen] = useState(true);
 
+  const dr = [false, false, false, false];
+  const [dropdown, setDropdown] = useState(dr);
+  const modifyDropdown = (index) => {
+    const dropdownCopy = [...dropdown];
+    dropdownCopy[index] = !dropdownCopy[index];
+    setOpen(true);
+    setDropdown(dropdownCopy);
+  };
   return (
-    <div className=" bg-gradient-to-b from-primary-menu to-secondary-menu w-full h-full">
-      <div className="w-full flex justify-end pr-4 pt-4">
-        <IoMdArrowDropleftCircle
-          className="text-white cursor-pointer"
-          size={20}
-        />
+    <div className=" bg-gradient-to-b from-primary-menu to-secondary-menu w-full h-full  ">
+      <div className="w-full md:justify-end md:pr-4 md:pt-4 hidden md:flex justify-center p-2">
+        {open ? (
+          <IoMdArrowDropleftCircle
+            className="text-white cursor-pointer "
+            size={20}
+            onClick={() => setOpen(!open)}
+          />
+        ) : (
+          <IoMdArrowDroprightCircle
+            className="text-white cursor-pointer "
+            size={20}
+            onClick={() => setOpen(!open)}
+          />
+        )}
       </div>
 
-      <ul className="p-6 h-full overflow-y-auto grow">
-        {menuItems.map((item) => {
+      <ul className="md:p-6 p-2 h-full overflow-y-auto grow">
+        {menuItems.map((item, index) => {
           return (
-            <li className="p-4 flex-1">
-              <Link href={item.url}>
-                <div className="flex items-center gap-2">
-                  {item.icon}
-                  <p className="text-white text-sm">{item.title}</p>
-                </div>
-              </Link>
+            <li className="md:p-4 p-2 flex-1" key={item.title}>
+              {item.submenu ? (
+                <>
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => modifyDropdown(index)}
+                  >
+                    {item.icon}
+                    <p className="text-white text-sm hidden md:flex">
+                      {open && item.title}
+                    </p>
+                  </button>
+                  {open && (
+                    <MenuDropdown
+                      submenus={item.submenu}
+                      visible={dropdown[index]}
+                    />
+                  )}
+                </>
+              ) : (
+                <Link href={item.url}>
+                  <div className="flex items-center gap-2">
+                    {item.icon}
+                    <p className="text-white text-sm hidden md:flex">
+                      {open && item.title}
+                    </p>
+                  </div>
+                </Link>
+              )}
             </li>
           );
         })}
