@@ -1,11 +1,26 @@
-import React from "react";
+"use client";
+import MainTable from "@/components/UI/MainTable";
+import { currentAccessStatus, orderStatus } from "@/utils/dashboardMock";
+import React, { useState } from "react";
 
 const Dashboard = () => {
   return (
-    <div className="w-full h-full ">
-      <div className="w-full text-right">
-        <h1 className="text-3xl font-bold px-4 text-primary-menu">Dashboard</h1>
+    <div className="w-full h-full grid grid-cols-2 grid-rows-3 gap-2 px-2">
+      <div className=" overflow-auto">
+        <h3 className="text-lg font-semibold px-6 py-2">Orders Receipt</h3>
+        <MainTable tableItems={orderStatus} />
       </div>
+      <div className="overflow-auto">
+        <h3 className="text-lg font-semibold px-6 py-2">
+          Current Access Status{" "}
+        </h3>
+        <MainTable tableItems={currentAccessStatus} />
+      </div>
+
+      <div className="bg-green-200">p</div>
+      <div className="bg-blue-200">p</div>
+      <div className="bg-yellow-200">p</div>
+      <div className="bg-purple-200">p</div>
     </div>
   );
 };

@@ -18,16 +18,20 @@ export const menuItems = [
     icon: <TbFileCertificate className="text-white" size={20} />,
     submenu: [
       {
-        title: "Project List",
+        title: "List",
         url: "/dashboard/projects/project-list",
       },
       {
-        title: "Project Exchange Rate",
+        title: "Exchange Rate",
         url: "/dashboard/projects/project-exchange-rate",
       },
       {
-        title: "Project Authorization",
+        title: "Authorization",
         url: "/dashboard/projects/project-authorization",
+      },
+      {
+        title: "Attributes",
+        url: "/dashboard/projects/project-attributes",
       },
     ],
   },
