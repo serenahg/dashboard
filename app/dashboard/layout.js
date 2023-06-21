@@ -6,7 +6,9 @@ export default function DashboardLayout({ children }) {
       <div className=" min-w-min overflow-hidden  ">
         <Menu />
       </div>
-      <div className="overflow-auto w-full max-h-screen">{children}</div>
+      <div className="w-full max-h-screen overflow-auto scrollbar-hide">
+        {children}
+      </div>
     </section>
   );
 }

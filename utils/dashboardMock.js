@@ -24,18 +24,6 @@ export const currentAccessStatus = [
     batch: "2 - Upholstery",
     dateTime: "21 - Apr-2023 8:10",
   },
-  {
-    name: "Sally Hameed",
-    project: "B05 - B05",
-    batch: "2 - Upholstery",
-    dateTime: "21 - Apr-2023 8:10",
-  },
-  {
-    name: "Sally Hameed",
-    project: "B05 - B05",
-    batch: "2 - Upholstery",
-    dateTime: "21 - Apr-2023 8:10",
-  },
 ];
 
 export const orderStatus = [
@@ -54,49 +42,76 @@ export const orderStatus = [
     "n. of order": 4,
     "value in SAR": 1000,
   },
-  {
-    status: "Order Rejecting",
-    "n. of order": 6,
-    "value in SAR": 11000,
-  },
-  {
-    status: "Order Hold",
-    "n. of order": 2,
-    "value in SAR": 4250,
-  },
+
   {
     status: "Order Waiting Confirmation",
     "n. of order": 2,
     "value in SAR": 4250,
   },
+];
+
+export const recentActivities = [
   {
-    status: "Order Issued",
-    "n. of order": 0,
-    "value in SAR": 4250,
+    project: "B05",
+    "item Ref": "SS001",
+    description: "Sofa 2 Seat",
+    status: "IDA",
+    "last Edited": "27-Apr-23",
+    image: "/sofa.jpg",
   },
   {
-    status: "Order Granted Revision",
-    "n. of order": 2,
-    "value in SAR": 0,
+    project: "B05",
+    "item Ref": "SS451",
+    description: "Sofa 3 Seat",
+    status: "IDA",
+    "last Edited": "27-Apr-23",
+    image: "/sofa.jpg",
   },
   {
-    status: "Order Supplier Query",
-    "n. of order": 2,
-    "value in SAR": 4250,
+    project: "B02",
+    "item Ref": "SS008",
+    description: "Coffee table",
+    status: "IDA",
+    "last Edited": "27-Apr-23",
+    image: "/sofa.jpg",
   },
   {
-    status: "Order Issued",
-    "n. of order": 0,
-    "value in SAR": 4250,
+    project: "B04",
+    "item Ref": "SS011",
+    description: "Console Lamp",
+    status: "IDA",
+    "last Edited": "27-Apr-23",
+    image: "/sofa.jpg",
+  },
+];
+
+export const data = [
+  {
+    uv: 0,
+    name: "item sent to Site",
   },
   {
-    status: "Order Granted Revision",
-    "n. of order": 2,
-    "value in SAR": 0,
+    uv: 50,
+    name: "Item Warehouse - Jeddah",
   },
   {
-    status: "Order Supplier Query",
-    "n. of order": 2,
-    "value in SAR": 4250,
+    uv: 100,
+    name: "Item Warehouse - Riyadh",
+  },
+  {
+    uv: 150,
+    name: "Item Cleared Customs",
+  },
+  {
+    uv: 200,
+    name: "Item Shipped",
+  },
+  {
+    uv: 250,
+    name: "Item of Shipment",
+  },
+  {
+    uv: 300,
+    name: "Item Finished",
   },
 ];

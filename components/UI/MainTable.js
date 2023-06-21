@@ -14,34 +14,40 @@ const MainTable = ({ tableItems }) => {
   const keys = extractKeys(tableItems);
 
   return (
-    <div className="max-h-full ">
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-left text-sm font-light">
-          <thead className="bg-primary-menu text-white">
-            <tr>
+    <div className="h-full w-full  overflow-y-auto">
+      <table className="min-w-full text-left text-sm font-light table-auto">
+        <thead className="bg-primary-menu text-white">
+          <tr>
+            {keys.map((key) => (
+              <th scope="col" className="px-6 py-1" key={key}>
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="max-h-full ">
+          {tableItems.map((item, index) => (
+            <tr
+              className="border-b dark:border-neutral-500 cursor-pointer"
+              key={index}
+            >
               {keys.map((key) => (
-                <th scope="col" className="px-6 py-1" key={key}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                </th>
+                <td className="px-6 py-1 font-normal" key={key}>
+                  {item[key] === item.image ? (
+                    <img
+                      src={item.image}
+                      style={{ width: "80px" }}
+                      alt="Item"
+                    />
+                  ) : (
+                    item[key]
+                  )}
+                </td>
               ))}
             </tr>
-          </thead>
-          <tbody>
-            {tableItems.map((item, index) => (
-              <tr
-                className="border-b dark:border-neutral-500 cursor-pointer"
-                key={index}
-              >
-                {keys.map((key) => (
-                  <td className="px-6 py-1 font-normal" key={key}>
-                    {item[key]}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

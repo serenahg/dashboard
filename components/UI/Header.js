@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import { usePathname } from "next/navigation";
+import MainButton from "./MainButton";
 
 const Header = () => {
   const pathname = usePathname();
@@ -26,10 +27,15 @@ const Header = () => {
         height={150}
         alt="HID Company Logo"
       />
-      <div>
-        <h3 className="text-3xl font-bold px-4 text-primary-menu">
+      <div className="flex flex-col justify-end items-end px-4">
+        <h3 className="text-3xl font-bold text-primary-button pb-1">
           {extractingRoute(pathname)}
         </h3>
+        <MainButton
+          fun={() => console.log("clicking")}
+          title="Refresh "
+          style={{ padding: "2px 10px", fontSize: "13px" }}
+        />
       </div>
     </div>
   );
