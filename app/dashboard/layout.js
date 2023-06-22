@@ -12,3 +12,5 @@ export default function DashboardLayout({ children }) {
     </section>
   );
 }
+
+//<div className="w-full max-h-screen overflow-auto scrollbar-hide">

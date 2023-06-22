@@ -47,7 +47,7 @@ const Menu = () => {
       ref={menuRef}
       className={`${
         !open ? "md:w-full" : "md:w-[9.5rem]"
-      } transform transition-width ease-in-out duration-500  bg-gradient-to-b from-primary-menu to-secondary-menu  h-full`}
+      } transform transition-width ease-in-out duration-500 rounded-tr-md  bg-gradient-to-b from-primary-menu to-secondary-menu  h-full`}
     >
       <div
         className={`w-full justify-center hidden  ${
