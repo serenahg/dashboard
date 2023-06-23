@@ -1,7 +1,6 @@
-import Link from "next/link";
 import React from "react";
 
-const MainTable = ({ tableItems, linkable, linkableKey }) => {
+const MainTable = ({ tableItems, linkables }) => {
   const extractKeys = (arr) => {
     const allKeys = new Set();
     arr.forEach((obj) => {
@@ -14,15 +13,25 @@ const MainTable = ({ tableItems, linkable, linkableKey }) => {
 
   const keys = extractKeys(tableItems);
 
+  const getLinkableUrl = (key, value) => {
+    const linkable = linkables.find((linkable) => linkable[key]);
+    if (linkable) {
+      return `${linkable[key]}/${value
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")}`;
+    }
+    return null;
+  };
+
   return (
-    <div className="h-full w-full  overflow-y-auto">
+    <div className="h-full w-full overflow-y-auto">
       <table className="min-w-full text-left text-sm font-light table-auto">
         <thead className="bg-primary-menu text-white sticky top-0">
           <tr>
             {keys.map((key) => (
               <th
                 scope="col"
-                className="px-2 py-1 font-medium tracking-wide "
+                className="px-2 py-1 font-medium tracking-wide"
                 key={key}
               >
                 {key.charAt(0).toUpperCase() + key.slice(1)}
@@ -30,7 +39,7 @@ const MainTable = ({ tableItems, linkable, linkableKey }) => {
             ))}
           </tr>
         </thead>
-        <tbody className="max-h-full overflow-y-auto overflow-scroll ">
+        <tbody className="max-h-full overflow-y-auto overflow-scroll">
           {tableItems.map((item, index) => (
             <tr
               className="border-b dark:border-neutral-500 cursor-pointer"
@@ -44,19 +53,21 @@ const MainTable = ({ tableItems, linkable, linkableKey }) => {
                       style={{ width: "80px" }}
                       alt="Item"
                     />
-                  ) : linkable && key === linkableKey ? (
-                    <a
-                      target="_blank"
-                      className="underline text-primary-button"
-                      href={`${linkable}/${item[key]
-                        .replace(/\s+/g, "-")
-                        .replace(/-+/g, "-")}`}
-                      rel="noopener noreferrer"
-                    >
-                      {item[key]}
-                    </a>
                   ) : (
-                    item[key]
+                    <React.Fragment>
+                      {linkables && getLinkableUrl(key, item[key]) ? (
+                        <a
+                          target="_blank"
+                          className="underline text-primary-button"
+                          href={getLinkableUrl(key, item[key])}
+                          rel="noopener noreferrer"
+                        >
+                          {item[key]}
+                        </a>
+                      ) : (
+                        item[key]
+                      )}
+                    </React.Fragment>
                   )}
                 </td>
               ))}
