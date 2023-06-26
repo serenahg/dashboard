@@ -12,7 +12,7 @@ const AllItemsChart = ({
       <div className="flex justify-between">
         <MainListBox
           list={allProjects}
-          displayKey="projects"
+          displayKey="project name"
           setSelectedProject={setSelectedProject}
           selected={selectedProject}
         />

@@ -26,13 +26,15 @@ const Header = () => {
       />
       {pathname !== "/" && (
         <div className="flex flex-col px-4 ">
-          <h3 className="text-3xl font-bold text-primary-button">
-            {extractingRoute(pathname)}
-          </h3>
-          <div className="flex justify-between w-full items-center">
-            <h4 className="text-primary-button text-3xl pb-1">
+          <div className="flex items-baseline justify-between">
+            <h4 className="text-primary-button text-3xl pb-1 pr-2 font-bold">
               {userInfo.dpt}
             </h4>
+            <h3 className="text-3xl font-bold text-primary-button text-right">
+              {extractingRoute(pathname)}
+            </h3>
+          </div>
+          <div className="flex w-full items-center justify-end">
             <MainButton
               fun={() => console.log("clicking")}
               title="Refresh"

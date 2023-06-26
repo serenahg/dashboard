@@ -48,7 +48,6 @@ const Dashboard = () => {
     >
       {sortedUserInfo.dashboard.map((table, index) => {
         if (table.kind !== "chart") {
-          console.log("test", sortedUserInfo.dashboard.length);
           const shouldDisplayHorizontally =
             (hasEvenNormalTables && table === lastNormalTable) ||
             Object.keys(table.content[0]).length > 8 ||

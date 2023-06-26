@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   }, []);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={` min-h-screen flex flex-col scrollbar-hide `}>
         <Header />
         {children}

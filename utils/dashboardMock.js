@@ -208,6 +208,13 @@ export const yourTenderReceveid = [
 export const allProjects = [
   {
     projects: "B05 - Farm",
+    "project number": "B05",
+    "project name": "Farm",
+    "project manager": "Marcelo Ortega",
+    "project status": "Active",
+    "project type": "LOC",
+    "start date": "01-apr-2023",
+    "last access date": "27-apr-23",
     date: "27-Apr-23",
     data: [
       {
@@ -274,6 +281,13 @@ export const allProjects = [
   },
   {
     projects: "MUD - Elevated Seating",
+    "project number": "MUD",
+    "project name": "Elevating Seating",
+    "project manager": "Marcelo Ortega",
+    "project status": "Active",
+    "project type": "LOC",
+    "start date": "20-Oct-2022",
+    "last access date": "13-Mar-23",
     date: "13-Mar-23",
     data: [
       {
@@ -340,6 +354,13 @@ export const allProjects = [
   },
   {
     projects: "HID03 - Aljazirah",
+    "project number": "HID03",
+    "project name": "Aljazirah",
+    "project manager": "Marcelo Ortega",
+    "project status": "Active",
+    "project type": "LOC",
+    "start date": "01-jan-2023",
+    "last access date": "12-mar-23",
     date: "12-Mar-23",
     data: [
       {
@@ -406,7 +427,14 @@ export const allProjects = [
   },
   {
     projects: "C1150 - Golf Club",
-    date: "01-Feb-23",
+    "project number": "C1150",
+    "project name": "Golf Club",
+    "project manager": "Marcelo Ortega",
+    "project status": "closed",
+    "project type": "LOC",
+    "start date": "05-may-2023",
+    "last access date": "12-mar-23",
+    date: "12-Mar-23",
     data: [
       {
         quantity: 30,
@@ -472,7 +500,14 @@ export const allProjects = [
   },
   {
     projects: "B07 - Hill House",
-    date: "14-Jan-23",
+    "project number": "B07",
+    "project name": "Hill House",
+    "project manager": "Marcelo Ortega",
+    "project status": "Active",
+    "project type": "LOC",
+    "start date": "01-may-2023",
+    "last access date": "12-jun-23",
+    date: "14-Jun-23",
     data: [
       {
         quantity: 100,
@@ -538,6 +573,13 @@ export const allProjects = [
   },
   {
     projects: "MOR - Hall Pool",
+    "project number": "MOR",
+    "project name": "Hall Pool",
+    "project manager": "Marcelo Ortega",
+    "project status": "Active",
+    "project type": "LOC",
+    "start date": "04-feb-2023",
+    "last access date": "13-Feb-23",
     date: "13-Feb-23",
     data: [
       {
@@ -604,6 +646,13 @@ export const allProjects = [
   },
   {
     projects: "HID06 - Royal Garden",
+    "project number": "HID06",
+    "project name": "Royal Garden",
+    "project manager": "Marcelo Ortega",
+    "project status": "Active",
+    "project type": "LOC",
+    "start date": "04-nov-2023",
+    "last access date": "01-Mar-23",
     date: "01-Mar-23",
     data: [
       {
@@ -670,6 +719,13 @@ export const allProjects = [
   },
   {
     projects: "C1180 - Golf Club",
+    "project number": "C1180",
+    "project name": "Golf Club",
+    "project manager": "Bernardo Martos",
+    "project status": "Active",
+    "project type": "LOC",
+    "start date": "04-sep-2023",
+    "last access date": "01-Feb-23",
     date: "01-Feb-23",
     data: [
       {
@@ -1103,7 +1159,7 @@ export const latestExpeditingNotes = [
   },
 ];
 
-export const userInfo = {
+export const userInfo2 = {
   name: "Marco Olivieri",
   dpt: "Purchasing",
   dashboard: [
@@ -1141,7 +1197,7 @@ export const userInfo = {
     },
   ],
 };
-export const userInfo2 = {
+export const userInfo = {
   name: "Serena Olivieri",
   dpt: "FF&E",
   dashboard: [
