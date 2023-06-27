@@ -49,7 +49,7 @@ const MainTableFilter = ({ tableItems, linkables }) => {
               <th key={key} className=" py-1">
                 <input
                   type="text"
-                  className="w-full px-2 py-1 font-light text-sm bg-white text-primary-menu border border-gray-300 rounded-md"
+                  className="w-full !outline-none px-2 py-1 font-light text-sm bg-white text-primary-menu border border-gray-300 rounded-md"
                   placeholder={`Filter ${key}...`}
                   value={filters[key] || ""}
                   onChange={(e) => handleFilterChange(key, e.target.value)}

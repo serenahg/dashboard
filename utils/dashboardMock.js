@@ -1205,6 +1205,11 @@ export const userInfo = {
       title: "Number of Items",
       content: allProjects,
       kind: "chart",
+      linkables: [
+        {
+          "project number": "/dashboard/items/batches",
+        },
+      ],
     },
     {
       title: "Current Access Status",
@@ -1215,13 +1220,13 @@ export const userInfo = {
       title: "Recent Projects",
       content: recentProjects,
       kind: "table",
-      linkables: [{ projects: "/dashboard/projects/project-list" }],
+      linkables: [{ projects: "/dashboard/items/batches" }],
     },
     {
       title: "Recent Activities",
       content: recentActivities,
       kind: "table",
-      linkables: [{ project: "/dashboard/projects/project-list" }],
+      linkables: [{ project: "/dashboard/items/batches" }],
     },
     {
       title: "Recent Activities",

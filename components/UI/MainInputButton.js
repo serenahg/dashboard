@@ -1,16 +1,6 @@
 "use client";
-import React, { useState } from "react";
 import MainInputAutoCom from "./MainInputAutoCom";
 import MainButton from "./MainButton";
-
-const list = [
-  { id: 1, name: "Wade Cooper" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-  { id: 5, name: "Tanya Fox" },
-  { id: 6, name: "Hellen Schmidt" },
-];
 
 const MainInputButton = ({ selected, setSelected, list }) => {
   return (

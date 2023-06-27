@@ -9,16 +9,8 @@ export const MainListBox = ({
   setSelectedProject,
   selected,
 }) => {
-  console.log("display", displayKey);
-  console.log(displayKey.includes("-"));
   const display = displayKey.split(" - ");
-  console.log(display[0]);
-  console.log(display[1]);
 
-  const displayName = displayKey.includes("-")
-    ? `${display[0]} - ${display[1]}`
-    : displayKey;
-  console.log(displayName);
   return (
     <div className="w-72 p-2 z-50">
       <Listbox value={selected} onChange={setSelectedProject}>
@@ -53,7 +45,7 @@ export const MainListBox = ({
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-1 pl-10 pr-4 ${
+                    `relative cursor-default select-none py-1 pl-3 pr-4 text-left ${
                       active ? "bg-secondary-font text-white" : "text-gray-900"
                     }`
                   }
