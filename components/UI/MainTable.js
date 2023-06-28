@@ -1,6 +1,7 @@
 import React from "react";
 
 const MainTable = ({ tableItems, linkables }) => {
+  console.log("linkables", linkables);
   const extractKeys = (arr) => {
     const allKeys = new Set();
     arr.forEach((obj) => {

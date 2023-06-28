@@ -100,11 +100,11 @@ export const recentActivities = [
 ];
 
 export const recentProjects = [
-  { projects: "B05 - Farm", date: "27-Apr-23" },
-  { projects: "MUD - Elevated Seating", date: "13-Mar-23" },
-  { projects: "HID03 - Aljazirah", date: "12-Mar-23" },
-  { projects: "C1150 - Golf Club", date: "01-Feb-23" },
-  { projects: "C1150 - Golf Club", date: "01-Feb-23" },
+  { project: "B05", name: "Farm", "last visit": "27-Apr-23" },
+  { project: "MUD", name: "Elevated Seating", "last visit": "13-Mar-23" },
+  { project: "MOR", name: "Hall Pool", "last visit": "12-Mar-23" },
+  { project: "B07", name: "Hill House", "last visit": "01-Feb-23" },
+  { project: "C1150", name: "Golf Club", "last visit": "01-Feb-23" },
 ];
 
 export const orderStatus = [
@@ -1220,7 +1220,7 @@ export const userInfo = {
       title: "Recent Projects",
       content: recentProjects,
       kind: "table",
-      linkables: [{ projects: "/dashboard/items/batches" }],
+      linkables: [{ project: "/dashboard/items/batches" }],
     },
     {
       title: "Recent Activities",
