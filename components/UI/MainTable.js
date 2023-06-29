@@ -26,8 +26,8 @@ const MainTable = ({ tableItems, linkables }) => {
 
   return (
     <div className="h-full w-full overflow-y-auto">
-      <table className="min-w-full text-left text-sm font-light table-auto">
-        <thead className="bg-primary-menu text-white sticky top-0">
+      <table className="min-w-full text-left text-sm font-light table-auto w-full">
+        <thead className="bg-primary-menu text-white sticky top-0 w-full">
           <tr>
             {keys.map((key) => (
               <th
@@ -40,7 +40,7 @@ const MainTable = ({ tableItems, linkables }) => {
             ))}
           </tr>
         </thead>
-        <tbody className="max-h-full overflow-y-auto overflow-scroll">
+        <tbody className="max-h-full overflow-y-auto overflow-scroll w-full">
           {tableItems.map((item, index) => (
             <tr
               className="border-b dark:border-neutral-500 cursor-pointer"

@@ -95,6 +95,19 @@ export const projectsBatches = [
             "fabric date": "15-06-2023",
             "sample inspection": "YES",
             "shop drawing": "YES",
+            dimensions: {
+              wd: 1000.0,
+              ln: 200.0,
+            },
+            compositions: {
+              wool: "100%",
+            },
+            specifications: {
+              notes: "",
+              description: "velvet prints",
+              "martindale rubs test": "",
+              "additional info": "",
+            },
           },
           {
             image: "/sofa.jpg",
