@@ -1,5 +1,4 @@
 "use client";
-import MainTable from "@/components/UI/MainTable";
 import MainTableCRUD from "@/components/UI/MainTableCRUD";
 import { projectsBatches } from "@/utils/batchesMock";
 import { removeKeys } from "@/utils/constants";
@@ -34,6 +33,7 @@ const BatchItems = ({ params }) => {
         <div className="inline-block min-w-max w-full">
           <MainTableCRUD
             tableItems={localBatch}
+            projectNum={params.id}
             linkables={selectedBatch.linkables}
             setTableItems={setLocalBatch}
           />
