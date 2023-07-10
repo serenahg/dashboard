@@ -1,12 +1,12 @@
 import { Popover, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
-import { BiAlarm, BiCheck, BiHide, BiLock } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
 import { IconWithDescription } from "./IconWithDescription";
 
 const UpperMenuAnimated = ({ children }) => {
   return (
-    <div className="flex flex-col pb-2">
-      <Popover className="relative">
+    <div className=" flex flex-col pb-2 ">
+      <Popover className="relative z-60">
         {({ open }) => (
           <>
             <Popover.Button

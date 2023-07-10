@@ -1,13 +1,6 @@
 "use client";
 
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-  Fragment,
-  useRef,
-  useReducer,
-} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -22,124 +15,25 @@ import {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
   MdDelete,
+  MdAdd,
 } from "react-icons/md";
 
 import UpperMenuAnimated from "./UpperMenuAnimated";
-import { TabOptionsMenu } from "./TabOptionsMenu";
 import { IconWithDescription } from "./IconWithDescription";
-
-function Filter({ column, table }) {
-  const firstValue = table
-    .getPreFilteredRowModel()
-    .flatRows[0]?.getValue(column.id);
-
-  const columnFilterValue = column.getFilterValue();
-
-  const sortedUniqueValues = useMemo(
-    () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()]
-  );
-
-  return (
-    <>
-      <datalist id={column.id + "list"}>
-        {sortedUniqueValues.slice(0, 5000).map((value, index) => (
-          <option value={value} key={index} />
-        ))}
-      </datalist>
-      <DebouncedInput
-        type="text"
-        value={columnFilterValue || ""}
-        onChange={(value) => column.setFilterValue(value)}
-        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-        className="w-36 border shadow rounded outline-none text-primary-menu"
-        list={column.id + "list"}
-      />
-      <div className="h-1" />
-    </>
-  );
-}
-
-// A debounced input react component
-function DebouncedInput({
-  value: initialValue,
-  onChange,
-  debounce = 500,
-  ...props
-}) {
-  const [value, setValue] = useState(initialValue);
-
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onChange(value);
-    }, debounce);
-
-    return () => clearTimeout(timeout);
-  }, [value]);
-
-  return (
-    <input
-      {...props}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
-}
-
-const fuzzyFilter = (row, columnId, value, addMeta) => {
-  // Rank the item
-  const itemRank = rankItem(row.getValue(columnId), value);
-
-  // Store the itemRank info
-  addMeta({
-    itemRank,
-  });
-
-  // Return if the item should be filtered in/out
-  return itemRank.passed;
-};
-
-function IndeterminateCheckbox({ indeterminate, className = "", ...rest }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    if (typeof indeterminate === "boolean") {
-      ref.current.indeterminate = !rest.checked && indeterminate;
-    }
-  }, [ref, indeterminate]);
-
-  return (
-    <input
-      type="checkbox"
-      ref={ref}
-      className={className + " cursor-pointer"}
-      {...rest}
-    />
-  );
-}
+import {
+  Filter,
+  IndeterminateCheckbox,
+  customCellRenderer,
+  fuzzyFilter,
+  newRow,
+  onDragStart,
+  onDrop,
+  useSkipper,
+} from "@/utils/constants";
 
 const MainTableCrud = ({ tableItems, projectNum }) => {
-  //const [localData, setLocalData] = useState(tableItems);
-  const [rowSelection, setRowSelection] = useState({});
-  const [sorting, setSorting] = useState([]);
-  const [filtering, setFiltering] = useState("");
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [columnVisibility, setColumnVisibility] = useState({});
-
-  const up = (
-    <MdKeyboardArrowDown className="text-white cursor-pointer z-40" size={18} />
-  );
-  const down = (
-    <MdKeyboardArrowUp className="text-white cursor-pointer z-40" size={18} />
-  );
-
   /** @type import("@tanstack/react-table").ColumnDef<any>*/
-
-  const columns = [
+  const columns = useMemo(() => [
     {
       id: "select",
       header: ({ table }) => (
@@ -165,49 +59,48 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
       ),
     },
     {
+      id: "image",
       header: "IMAGE",
       accessorKey: "image",
-      id: "image",
-      cell: (info) => (
-        info.getValue(),
-        (
-          <img
-            src={info.row.original.image}
-            style={{ width: "30px" }}
-            alt="Item"
-          />
-        )
-      ),
+      cell: (info) => {
+        const value = info.getValue();
+        return (
+          <div>
+            <img src={value} style={{ width: "30px" }} alt="Item" />
+          </div>
+        );
+      },
     },
+    ,
     {
       id: "location",
       header: "LOCATION",
       accessorKey: "location",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "price",
       header: "PRICE",
       accessorKey: "price",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "size",
       header: "SIZE",
       accessorKey: "size",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "ordered",
       header: "ORDERED",
       accessorKey: "ordered",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "description",
       header: "DESCRIPTION",
       accessorKey: "description",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "item ref",
@@ -230,96 +123,110 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
       id: "qty",
       header: "QTY",
       accessorKey: "qty",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "budget cur",
       header: "BUDGET CUR",
       accessorKey: "budget cur",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "act rate",
       header: "ACT RATE",
       accessorKey: "act rate",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "batch",
       header: "BATCH",
       accessorKey: "batch",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "part n",
       header: "PART N",
       accessorKey: "part n",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "supplier",
       header: "SUPPLIER",
       accessorKey: "supplier",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "manifacturer",
       header: "MANIFACTURER",
       accessorKey: "manifacturer",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "uom",
       header: "UOM",
       accessorKey: "uom",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "coo",
       header: "COO",
       accessorKey: "coo",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "del address",
       header: "DEL ADDRESS",
       accessorKey: "del address",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "supplier address",
       header: "SUPPLIER ADDRESS",
       accessorKey: "supplier address",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "fabric res",
       header: "FABRIC RES",
       accessorKey: "fabric res",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "fabric date",
       header: "FABRIC DATE",
       accessorKey: "fabric date",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "sample inspection",
       header: "SAMPLE INSPECTION",
       accessorKey: "sample inspection",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
     {
       id: "shop drowing",
       header: "SHOP DROWING",
       accessorKey: "shop drowing",
-      cell: (info) => info.getValue(),
+      cell: customCellRenderer,
     },
-  ];
+  ]);
+  const [rowSelection, setRowSelection] = useState({});
+  const [sorting, setSorting] = useState([]);
+  const [filtering, setFiltering] = useState("");
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [columnVisibility, setColumnVisibility] = useState({});
   const [data, setData] = useState(useMemo(() => tableItems, []));
 
-  const ctable = useReactTable({
+  const up = (
+    <MdKeyboardArrowDown className="text-white cursor-pointer z-40" size={18} />
+  );
+  const down = (
+    <MdKeyboardArrowUp className="text-white cursor-pointer z-40" size={18} />
+  );
+
+  const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
+
+  const table = useReactTable({
     data,
     columns,
     filterFns: {
@@ -338,46 +245,54 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
       columnVisibility,
       rowSelection,
     },
+    autoResetPageIndex,
     enableRowSelection: true, //enable row selection for all rows
-    // enableRowSelection: row => row.original.age > 18, // or enable row selection conditionally per row
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
     onGlobalFilterChange: setFiltering,
+
+    meta: {
+      updateData: (rowIndex, columnId, value) => {
+        // Skip page index reset until after next rerender
+        skipAutoResetPageIndex();
+        setData((old) =>
+          old.map((row, index) => {
+            if (index === rowIndex) {
+              return {
+                ...old[rowIndex],
+                [columnId]: value,
+              };
+            }
+            return row;
+          })
+        );
+      },
+    },
+    // debugTable: true,
   });
-  let columnBeingDragged;
-
-  const onDragStart = (e) => {
-    columnBeingDragged = Number(e.currentTarget.dataset.columnIndex);
-  };
-
-  const onDrop = (e) => {
-    e.preventDefault();
-    const newPosition = Number(e.currentTarget.dataset.columnIndex);
-    const currentCols = ctable.getVisibleLeafColumns().map((c) => c.id);
-    const colToBeMoved = currentCols.splice(columnBeingDragged, 1);
-    currentCols.splice(newPosition, 0, colToBeMoved[0]);
-    ctable.setColumnOrder(currentCols); // <------------------------here you save the column ordering state
-  };
 
   useEffect(() => {
-    const columnFilters = ctable.getState().columnFilters;
+    const columnFilters = table.getState().columnFilters;
     // Iterate over each column filter
     columnFilters.forEach((filter) => {
       const { id } = filter;
       // Check if the column is being filtered
       if (id) {
-        const sorting = ctable.getState().sorting;
+        const sorting = table.getState().sorting;
         // Check if the column is not already sorted
         if (!sorting.some((sort) => sort.id === id)) {
           // Set the sorting for the filtered column
-          ctable.setSorting([{ id, desc: false }]);
+          table.setSorting([{ id, desc: false }]);
         }
       }
     });
-  }, [ctable.getState().columnFilters]);
+  }, [table.getState().columnFilters]);
 
+  const handleAdd = () => {
+    setData((prevData) => [newRow, ...prevData]);
+  };
   const handleDelete = async () => {
     if (rowSelection) {
       const filteredData = data.filter((item, index) => !rowSelection[index]);
@@ -391,25 +306,16 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
       setRowSelection(updatedRowSelection);
     }
   };
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
 
   return (
     <div>
       <div className="flex items-start">
-        {/* <input
-          spellCheck="true"
-          placeholder="Search all..."
-          className="outline-none my-2 px-2 rounded-md"
-          type="text"
-          value={filtering}
-          onChange={(e) => setFiltering(e.target.value)}
-        />
-        
-
-        
-        */}
         <div className="flex">
           <UpperMenuAnimated>
-            {ctable.getAllLeafColumns().map((column) => {
+            {table.getAllLeafColumns().map((column) => {
               return (
                 <div key={column.id} className="px-1">
                   <label>
@@ -427,41 +333,24 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
             })}
           </UpperMenuAnimated>
         </div>
-        {/*<TabOptionsMenu>
-        {{
-          showHide: [
-            ctable.getAllLeafColumns().map((column) => {
-              return (
-                <div key={column.id} className="px-1">
-                  <label>
-                    <input
-                      {...{
-                        type: "checkbox",
-                        checked: column.getIsVisible(),
-                        onChange: column.getToggleVisibilityHandler(),
-                      }}
-                    />{" "}
-                    {column.id}
-                  </label>
-                </div>
-              );
-            }),
-          ],
-          delete: [],
-        }}
-      </TabOptionsMenu>*/}
-        <div className="absolute ml-6 flex">
+
+        <div className="absolute ml-8 flex">
           <IconWithDescription
             icon={MdDelete}
             description="Delete"
             onclick={handleDelete}
+          />
+          <IconWithDescription
+            icon={MdAdd}
+            description="Add"
+            onclick={handleAdd}
           />
         </div>
       </div>
 
       <table className=" w-full text-left text-sm font-light">
         <thead className="bg-primary-menu text-white sticky top-0">
-          {ctable.getHeaderGroups().map((headerGroup) => (
+          {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
@@ -469,18 +358,18 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
                   key={header.id}
                   className="font-medium whitespace-no-wrap px-4 py-1 pt-2 cursor-pointer"
                   draggable={
-                    !ctable.getState().columnSizingInfo.isResizingColumn
+                    !table.getState().columnSizingInfo.isResizingColumn
                   }
                   data-column-index={header.index}
                   onDragStart={onDragStart}
                   onDragOver={(e) => {
                     e.preventDefault();
                   }}
-                  onDrop={onDrop}
+                  onDrop={(e) => onDrop(e, table)}
                 >
                   {header.column.getCanFilter() ? (
                     <div>
-                      <Filter column={header.column} table={ctable} />
+                      <Filter column={header.column} table={table} />
                     </div>
                   ) : null}
 
@@ -507,18 +396,35 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
           ))}
         </thead>
         <tbody>
-          {ctable.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              className=" font-normal border-b dark:border-neutral-500 even:bg-gray-50"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="px-4 py-2">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {table.getRowModel().rows.map((row) => {
+            return (
+              <tr
+                key={row.id}
+                className=" font-normal border-b dark:border-neutral-500 even:bg-gray-50"
+              >
+                {row.getVisibleCells().map((cell) => {
+                  const cellContext = cell.getContext();
+                  const cellMeta = cellContext.column.columnDef.meta;
+                  const cellContextProps =
+                    cellMeta &&
+                    cellMeta.getCellContext &&
+                    cellMeta.getCellContext(cellContext);
+                  return (
+                    <td
+                      key={cell.id}
+                      className="px-4 py-2"
+                      {...cellContextProps}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -528,8 +434,20 @@ const MainTableCrud = ({ tableItems, projectNum }) => {
 export default MainTableCrud;
 
 /*
+  <input
+          spellCheck="true"
+          placeholder="Search all..."
+          className="outline-none my-2 px-2 rounded-md"
+          type="text"
+          value={filtering}
+          onChange={(e) => setFiltering(e.target.value)}
+        />
+        
+
+        
+        
       <div className="flex w-1/3 items-center justify-between  py-3">
-        <MainButton title="First Page" fun={() => ctable.setPageIndex(0)} />
+        <MainButton title="First Page" fun={() => table.setPageIndex(0)} />
         <MainButton
           disabled={!ctable.getCanPreviousPage()}
           title="Previous Page"

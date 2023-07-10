@@ -10,14 +10,14 @@ export const IconWithDescription = ({ icon: Icon, description, onclick }) => {
       onClick={() => (onclick ? onclick() : null)}
     >
       <div
-        className="text-primary-menu cursor-pointer mr-2 rounded-sm bg-white m-1 shadow-lg hover:bg-white hover:shadow-none"
+        className="border-2 border-primary-menu rounded-md text-primary-menu cursor-pointer mr-1 bg-white m-1 shadow-lg hover:bg-white hover:shadow-none"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Icon size={20} />
+        <Icon size={20} className="" />
       </div>
       {isHovered && (
-        <span className="bg-white font-thin px-1 text-primary-menu text-xs rounded absolute bottom-6 left-2 opacity-85 flex whitespace-nowrap z-60">
+        <span className="bg-white font-thin px-1 text-primary-menu text-xs rounded absolute bottom-8 left-2 opacity-85 flex whitespace-nowrap z-60">
           {description}
         </span>
       )}

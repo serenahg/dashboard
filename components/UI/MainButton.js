@@ -1,7 +1,6 @@
 import React from "react";
 
 const MainButton = ({ title, fun, ...props }) => {
-  console.log(props);
   return (
     <button
       type={props.type}
